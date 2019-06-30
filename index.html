@@ -14,7 +14,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang>
+<html class="theme-next muse use-motion" lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -98,7 +98,7 @@
 <meta property="og:title" content="Hello">
 <meta property="og:url" content="http://yoursite.com/index.html">
 <meta property="og:site_name" content="Hello">
-<meta property="og:locale" content="default">
+<meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hello">
 
@@ -159,7 +159,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -187,7 +187,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Cambiar a barra de navegación">
+    <button aria-label="切换导航栏">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -214,7 +214,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Inicio</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
 
   </li>
         
@@ -230,7 +230,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archivo</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
 
   </li>
 
@@ -266,6 +266,153 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/30/hexo-github搭建个人博客/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wuyingge">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hello">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/30/hexo-github搭建个人博客/" class="post-title-link" itemprop="url">hexo + github搭建个人博客</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-30 20:51:08 / 修改时间：21:30:43" itemprop="dateCreated datePublished" datetime="2019-06-30T20:51:08+08:00">2019-06-30</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="使用hexo-github搭建个人博客"><a href="#使用hexo-github搭建个人博客" class="headerlink" title="使用hexo+github搭建个人博客"></a>使用hexo+github搭建个人博客</h1><p>使用github作为后台服务器，采用hexo进行博客的搭建，非常简单。大致有以下步骤</p>
+<h4 id="1-首先本地要有安装有git，并且安装nodejs-并配置好环境变量"><a href="#1-首先本地要有安装有git，并且安装nodejs-并配置好环境变量" class="headerlink" title="1.首先本地要有安装有git，并且安装nodejs,并配置好环境变量"></a>1.首先本地要有安装有git，并且安装nodejs,并配置好环境变量</h4><h4 id="2-搞一个github账号"><a href="#2-搞一个github账号" class="headerlink" title="2.搞一个github账号"></a>2.搞一个github账号</h4><h4 id="3-在github上创建一个repository，格式为yourGitHubName-github-io"><a href="#3-在github上创建一个repository，格式为yourGitHubName-github-io" class="headerlink" title="3.在github上创建一个repository，格式为yourGitHubName.github.io"></a>3.在github上创建一个repository，格式为yourGitHubName.github.io</h4><h4 id="4-本地生成SSH，并绑定到你的github账号"><a href="#4-本地生成SSH，并绑定到你的github账号" class="headerlink" title="4.本地生成SSH，并绑定到你的github账号"></a>4.本地生成SSH，并绑定到你的github账号</h4><h4 id="5-将hexo部署到github"><a href="#5-将hexo部署到github" class="headerlink" title="5.将hexo部署到github"></a>5.将hexo部署到github</h4><h4 id="6-格式化hexo，发布文章"><a href="#6-格式化hexo，发布文章" class="headerlink" title="6.格式化hexo，发布文章"></a>6.格式化hexo，发布文章</h4><h4 id="7-查看。设置个人域名"><a href="#7-查看。设置个人域名" class="headerlink" title="7.查看。设置个人域名"></a>7.查看。设置个人域名</h4><p><img src="assets/skr.jpeg" alt="skr"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -320,14 +467,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Publicado el</span>
+                <span class="post-meta-item-text">发表于</span>
               
 
               
                 
               
 
-              <time title="Creado por: 2019-06-30 15:26:57" itemprop="dateCreated datePublished" datetime="2019-06-30T15:26:57+08:00">2019-06-30</time>
+              <time title="创建时间：2019-06-30 15:26:57" itemprop="dateCreated datePublished" datetime="2019-06-30T15:26:57+08:00">2019-06-30</time>
             </span>
           
 
@@ -463,8 +610,8 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1</span>
-                    <span class="site-state-item-name">entradas</span>
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
               
@@ -521,7 +668,7 @@
 </div>
 
 
-  <div class="powered-by">Creado mediante <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
 
 
 
@@ -529,7 +676,7 @@
 
 
 
-  <div class="theme-info">Tema – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.2</div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.2</div>
 
 
 
