@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Hello</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2019-06-30T13:30:43.059Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>tonyge</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hexo + github搭建个人博客</title>
+    <link href="http://yoursite.com/2019/06/30/hexo-github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://yoursite.com/2019/06/30/hexo-github搭建个人博客/</id>
+    <published>2019-06-30T12:51:08.000Z</published>
+    <updated>2019-06-30T13:30:43.059Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="使用hexo-github搭建个人博客"><a href="#使用hexo-github搭建个人博客" class="headerlink" title="使用hexo+github搭建个人博客"></a>使用hexo+github搭建个人博客</h1><p>使用github作为后台服务器，采用hexo进行博客的搭建，非常简单。大致有以下步骤</p><h4 id="1-首先本地要有安装有git，并且安装nodejs-并配置好环境变量"><a href="#1-首先本地要有安装有git，并且安装nodejs-并配置好环境变量" class="headerlink" title="1.首先本地要有安装有git，并且安装nodejs,并配置好环境变量"></a>1.首先本地要有安装有git，并且安装nodejs,并配置好环境变量</h4><h4 id="2-搞一个github账号"><a href="#2-搞一个github账号" class="headerlink" title="2.搞一个github账号"></a>2.搞一个github账号</h4><h4 id="3-在github上创建一个repository，格式为yourGitHubName-github-io"><a href="#3-在github上创建一个repository，格式为yourGitHubName-github-io" class="headerlink" title="3.在github上创建一个repository，格式为yourGitHubName.github.io"></a>3.在github上创建一个repository，格式为yourGitHubName.github.io</h4><h4 id="4-本地生成SSH，并绑定到你的github账号"><a href="#4-本地生成SSH，并绑定到你的github账号" class="headerlink" title="4.本地生成SSH，并绑定到你的github账号"></a>4.本地生成SSH，并绑定到你的github账号</h4><h4 id="5-将hexo部署到github"><a href="#5-将hexo部署到github" class="headerlink" title="5.将hexo部署到github"></a>5.将hexo部署到github</h4><h4 id="6-格式化hexo，发布文章"><a href="#6-格式化hexo，发布文章" class="headerlink" title="6.格式化hexo，发布文章"></a>6.格式化hexo，发布文章</h4><h4 id="7-查看。设置个人域名"><a href="#7-查看。设置个人域名" class="headerlink" title="7.查看。设置个人域名"></a>7.查看。设置个人域名</h4><p><img src="assets/skr.jpeg" alt="skr"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;使用hexo-github搭建个人博客&quot;&gt;&lt;a href=&quot;#使用hexo-github搭建个人博客&quot; class=&quot;headerlink&quot; title=&quot;使用hexo+github搭建个人博客&quot;&gt;&lt;/a&gt;使用hexo+github搭建个人博客&lt;/h1&gt;&lt;p&gt;使用
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://yoursite.com/2019/06/30/hello-world/"/>
+    <id>http://yoursite.com/2019/06/30/hello-world/</id>
+    <published>2019-06-30T07:26:57.832Z</published>
+    <updated>2019-06-30T07:26:57.833Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
