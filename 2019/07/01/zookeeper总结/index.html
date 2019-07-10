@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>zookeeper总结与hadoop的安装 | myblog</title>
+  <meta name="description" content="Zookeeper的理解​    zookeeper是apache的一个项目，是一个小型的文件协调服务。官方推荐文件存储大小不超过1MB,本质上也是一个小型的文件存储系统。 ​    zookeeper在集群中的配置，通常是奇数台，原因是zookeeper集群之间存在投票选举机制。就是zookeeper集群之间，会选举出一个老大(leader),剩下的都是小弟(follower),另外还有观察者(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zookeeper总结与hadoop的安装">
+<meta property="og:url" content="http://yoursite.com/2019/07/01/zookeeper总结/index.html">
+<meta property="og:site_name" content="Hello">
+<meta property="og:description" content="Zookeeper的理解​    zookeeper是apache的一个项目，是一个小型的文件协调服务。官方推荐文件存储大小不超过1MB,本质上也是一个小型的文件存储系统。 ​    zookeeper在集群中的配置，通常是奇数台，原因是zookeeper集群之间存在投票选举机制。就是zookeeper集群之间，会选举出一个老大(leader),剩下的都是小弟(follower),另外还有观察者(">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-10T12:05:28.751Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="zookeeper总结与hadoop的安装">
+<meta name="twitter:description" content="Zookeeper的理解​    zookeeper是apache的一个项目，是一个小型的文件协调服务。官方推荐文件存储大小不超过1MB,本质上也是一个小型的文件存储系统。 ​    zookeeper在集群中的配置，通常是奇数台，原因是zookeeper集群之间存在投票选举机制。就是zookeeper集群之间，会选举出一个老大(leader),剩下的都是小弟(follower),另外还有观察者(">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://yoursite.com/2019/07/01/zookeeper总结/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hello" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg" type="image/x-icon">
+  
+  <!-- font-awesome CSS -->
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  
+    
+    
+
+</head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/tygitt" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">乌蝇哥</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">hadooper~~</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="fa fa-map-marker"></i> zhengzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="fa fa-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      <!-- <span class="ins-close ins-selectable"><i class="fa fa-times"></i></span> -->
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav">
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="fa fa-fw fa-dashboard"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="fa fa-fw fa-delicious"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="fa fa-fw fa-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="fa fa-fw fa-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="fa fa-fw fa-code"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="fa fa-fw fa-leanpub"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="fa fa-fw fa-gg"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-about active">
+          <a href="/about">
+            
+            <i class="fa fa-fw fa-coffee"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/tygitt" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="fa fa-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="fa fa-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="fa fa-twitter"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="fa fa-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            
+            <p>您好，您是第<span id="busuanzi_value_site_uv">0</span>位访客</p>
+            
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+
+    
+      
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/07/01/zookeeper总结/" class="title">zookeeper总结与hadoop的安装</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-07-01T13:14:55.000Z" itemprop="datePublished">2019-07-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/06/30/hexo-github搭建个人博客/" class="title">hexo + github搭建个人博客</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-06-30T12:51:08.000Z" itemprop="datePublished">2019-06-30</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/06/30/hello-world/" class="title">Hello World</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-06-30T07:26:57.832Z" itemprop="datePublished">2019-06-30</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-zookeeper总结" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      zookeeper总结与hadoop的安装
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="fa fa-calendar-check-o"></i>
+	<a href="/2019/07/01/zookeeper总结/" class="article-date">
+	  <time datetime="2019-07-01T13:14:55.000Z" itemprop="datePublished">2019-07-01</time>
+	</a>
+</span>
+        
+        
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="fa fa-eye" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="fa fa-commenting-o"></i> <a href="/2019/07/01/zookeeper总结/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+      
+    </div>
+    <div class="article-entry markdown-body" itemprop="articleBody">
+      
+        <h3 id="Zookeeper的理解"><a href="#Zookeeper的理解" class="headerlink" title="Zookeeper的理解"></a>Zookeeper的理解</h3><p>​    zookeeper是apache的一个项目，是一个小型的文件协调服务。官方推荐文件存储大小不超过1MB,本质上也是一个小型的文件存储系统。</p>
+<p>​    zookeeper在集群中的配置，通常是奇数台，原因是zookeeper集群之间存在投票选举机制。就是zookeeper集群之间，会选举出一个老大(leader),剩下的都是小弟(follower),另外还有观察者(observer)的角色，不过这个不常用。</p>
+<p><strong>leader：zk集群中的主节点，主要是处理客户端的事务性请求（增删改）create delete set 操作。</strong></p>
+<p><strong>follower：zk集群中的从节点，主要用来处理客户端的非事务型请求（查询），以及转发来自客户端的事务性请求。</strong></p>
+<p>observer：观察者角色，用来处理非事务性请求（查询），转发事务性的请求。该类型节点不参与投票选举机制。</p>
+<p>​    zookeeper在集群中的配置主要有两个地方，一个是zookeeper/conf/zoo.cfg  。 zk的默认配置文件</p>
+<p>修改dataDir的路径.另一个要修改的就是在这个dataDir路径之中添加一个myid文件,标记该zookeeper的id.</p>
+<h4 id="zookeeper中的主从机制与主备机制"><a href="#zookeeper中的主从机制与主备机制" class="headerlink" title="zookeeper中的主从机制与主备机制"></a>zookeeper中的主从机制与主备机制</h4><p>​    zookeeper中的主从机制：zookeeper集群中会存在一个主节点leader，剩余的都是从节点.leader节点进行任务的分配,从节点执行分配的任务.</p>
+<p>​    zookeeper中的主备机制：zookeeper中的主备机制主要针对于集群中的主节点，备用节点主要是为了保证zk集群的24小时高可用，当leader节点宕机之后，备用节点就会转换为leader节点。确保了zk集群的高可用。</p>
+<p><strong>zookeeper集群的基本特性：全局数据的一致性。保证每一台机器的zk中的数据都是一样的。</strong></p>
+<h4 id="zookeeper的shell操作，以及javaAPI的操作"><a href="#zookeeper的shell操作，以及javaAPI的操作" class="headerlink" title="zookeeper的shell操作，以及javaAPI的操作"></a>zookeeper的shell操作，以及javaAPI的操作</h4><p>​    zookeeper中的每一个节点被称为znode，znode既具有文件的特性，也具有文件夹的特性，即该节点下还可以创建子节点。</p>
+<h5 id="常用的zookeeper-shell操作："><a href="#常用的zookeeper-shell操作：" class="headerlink" title="常用的zookeeper shell操作："></a>常用的zookeeper shell操作：</h5><p>​    ls path：查看该路径下所有的znode（节点）</p>
+<p>​    create [-s] [-e] path  [value] ：在指定路径下创建一个节点。</p>
+<p>​                -s 表示创建一个序列化的节点  -e 表示创建一个临时节点，在client断开连接后，该节点会消失</p>
+<p>​    set：修改覆盖节点中的内容</p>
+<p>​    get：获得节点中的内容</p>
+<p>​    delete：删除该节点，如果该节点下有子节点则无法删除</p>
+<p>​    rmr：递归删除，删除该节点和该节点下的所有节点</p>
+<p>​    get path  watch  ： 为该节点添加watch监听，监听该节点的操作。watch只会触发一次。</p>
+<p>​    history：列出命令的历史</p>
+<h5 id="znode节点的属性"><a href="#znode节点的属性" class="headerlink" title="znode节点的属性"></a>znode节点的属性</h5><p>​    通过get命令可以获得该节点的内容和属性。</p>
+<p>​    znode的属性：</p>
+<p>​        dataVersion:数据的版本号，每次对节点进行set操作，该数字会加1，避免了数据更新的顺序问题</p>
+<p>​        cversion:子节点的版本号，子节点有变化就会加1</p>
+<p>​        aclVersion:ACL的版本号</p>
+<p>​        ephemeralOwner:如果该节点是临时节点，则改值表示与该节点绑定的session id 如果不是临时节点，该值为0</p>
+<p>在client与zkServer通信之前，需要建立连接，该链接成为session</p>
+<h5 id="zookeeper的watch机制"><a href="#zookeeper的watch机制" class="headerlink" title="zookeeper的watch机制"></a>zookeeper的watch机制</h5><p>​    zookeeper提供了 <strong>分布式数据发布/订阅</strong> 功能，一个典型的发布/订阅模型。能让多个订阅者同时监听一个发布者，当该发布者的自身状态改变时，会通知所有订阅者。</p>
+<p>​    zookeeper中通过 <strong>watch机制实现这种分布式的通知功能</strong></p>
+<p>​    大致上来说一个监听器Watcher的流程为：<strong>客户端向服务端注册watcher、服务端发生相应事件触发watcher、客户端回调watcher的触发事件的情况</strong></p>
+<p>​    <strong>watch机制是一次性触发的</strong>，即触发之后，就会销毁。</p>
+<p>​    zookeeper使用WatchedEvent对象封装服务端的事件进行传递</p>
+<p>​    WatchedEvent包含三个基本属性：keeperState 通知状态、EventType 事件类型、Path 节点的路径</p>
+<p>​    watcher的事件通知从服务器端发送到客户端是异步的</p>
+<h5 id="zookeeper的javaAPI"><a href="#zookeeper的javaAPI" class="headerlink" title="zookeeper的javaAPI"></a>zookeeper的javaAPI</h5><p>​    这里采用org.apache.curator该框架进行操作。需要导入curator-framework  curator-recipes两个依赖。</p>
+<p>​    javaAPI开发的大致流程：</p>
+<ol>
+<li><p>获得curatorFramework client对象，这里采用curatorFrameworkFactory工厂对象的静态方法，生成curatorFramework 对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CuratorFramework client = CuratorFrameworkFactory.newClient(String StrConnection,RetryPolicy retryPolicy);</span><br></pre></td></tr></table></figure>
+
+<p>第一个参数，代表要连接的zookeeper服务器地址，第二个参数RetryPolicy表示重试策略是一个接口</p>
+<p>这里使用的该接口的一个实现类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RetryPolicy retryPolicy = <span class="keyword">new</span> ExponentiaBackoffRetry(<span class="number">1000</span>,<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>其中第一参数为，连接失败重连的时间间隔，第二个参数为尝试重连的次数。</p>
+</li>
+<li><p>开启client连接</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">client.start();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行相应操作</p>
+<p><strong>增加操作：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">client.create().createParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath(String path  [,<span class="keyword">byte</span>[] value]);</span><br></pre></td></tr></table></figure>
+
+<p>其中create()表示创建一个节点</p>
+<p>createParentsIfNeeded()表示如果该节点的路径不存在，创建该路径</p>
+<p>withMode(CreateMode)，传入一个CreateMode枚举类型，表示创建什么类型的节点，有四种类型：永久节点、临时节点、永久序列化节点、临时序列化节点。</p>
+<p>forPath()，表示在哪个路径下创建节点，后面有一个可选参数byte[]，表示该节点的数据</p>
+<p><strong>删除操作：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">client.delete().forPath(String path);</span><br></pre></td></tr></table></figure>
+
+<p>删除指定path的节点</p>
+<p><strong>查看操作：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">client.get().forPath(String path);</span><br></pre></td></tr></table></figure>
+
+<p>返回一个byte[] 数组。 获得该路径下节点的数据</p>
+</li>
+<li><p>关闭客户端</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">client.close();</span><br></pre></td></tr></table></figure>
+
+<p>释放连接</p>
+</li>
+</ol>
+<p><strong>节点的watch机制</strong></p>
+<ol>
+<li><p>通过curatorFrameworkFactory的静态方法获得一个client</p>
+</li>
+<li><p>client.start();  建立连接</p>
+</li>
+<li><p>添加监听器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">TreeCache treeCache = <span class="keyword">new</span> TreeCache(CuratorFramework client,String path);</span><br><span class="line"><span class="comment">//添加节点的treeCache</span></span><br><span class="line">treeCache.getListenable().addListener(<span class="keyword">new</span> TreeCacheListener()&#123;</span><br><span class="line">    <span class="comment">// 使用new 接口的方法，采用匿名内部类创建一个对象</span></span><br><span class="line">    <span class="comment">// 重写该接口中的childEvent()方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">childEvent</span><span class="params">(CuratorFramework client, TreeCacheEvent event)</span> Throws Exception</span>&#123;</span><br><span class="line">        ChildData data = event.getData(); <span class="comment">// 获得监听到的数据</span></span><br><span class="line">        <span class="comment">//.... 相应的逻辑代码</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">treeCache.start(); <span class="comment">// 开始监听</span></span><br><span class="line">Thread.sleep(<span class="number">4000000</span>); <span class="comment">//让这个线程处于休眠状态，一致保持监听状态</span></span><br></pre></td></tr></table></figure>
+
+<p>值得注意的是，使用javaAPI 添加watcher，该watcher可以被重复的触发，并不是触发一次就销毁</p>
+</li>
+</ol>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://yoursite.com/2019/07/01/zookeeper总结/" title="zookeeper总结与hadoop的安装" target="_blank" rel="external">http://yoursite.com/2019/07/01/zookeeper总结/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/tygitt" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/tygitt" target="_blank"><span class="text-dark">乌蝇哥</span><small class="ml-1x">hadooper~~</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+       
+    <div id="uyan_frame"></div>
+
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2019/06/30/hexo-github搭建个人博客/" title="hexo + github搭建个人博客">下一篇&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,wechat"></div>
+  </div>
+  
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/tygitt" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="fa fa-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="fa fa-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="fa fa-twitter"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="fa fa-rss"></i></a></li>
+        
+    </ul>
+
+    <!--<div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>-->
+</footer>
+  <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.js"></script>
+<script src="/js/application.js"></script>
+  
+    
+    
+    
+        <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+    
+    
+        
+<script defer src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+    
+    
+        
+    
+    <script defer type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=[object Object]"></script>
+
+
+    
+    
+
+
+
+</body>
+</html>
