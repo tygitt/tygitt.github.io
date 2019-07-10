@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>hadoop-hdfs | myblog</title>
+  <meta name="description" content="HDFS-hadoop分布式文件系统hdfs(hadoop distributed file system)分布式文件存储系统，hdfs的集群搭建，可以搭建单节点类型，也可以搭建高可用hdfs集群。 hdfs集群采用的是master/slave（主人/奴隶）架构。NameNode是主节点 DataNode是从节点 hdfs集群适合一次存储，多次读取的情形，不适合频繁的修改。因为会产生大量的元数据信">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hadoop-hdfs">
+<meta property="og:url" content="http://yoursite.com/2019/07/10/hadoop-hdfs/index.html">
+<meta property="og:site_name" content="ty-blog">
+<meta property="og:description" content="HDFS-hadoop分布式文件系统hdfs(hadoop distributed file system)分布式文件存储系统，hdfs的集群搭建，可以搭建单节点类型，也可以搭建高可用hdfs集群。 hdfs集群采用的是master/slave（主人/奴隶）架构。NameNode是主节点 DataNode是从节点 hdfs集群适合一次存储，多次读取的情形，不适合频繁的修改。因为会产生大量的元数据信">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-10T12:55:38.754Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hadoop-hdfs">
+<meta name="twitter:description" content="HDFS-hadoop分布式文件系统hdfs(hadoop distributed file system)分布式文件存储系统，hdfs的集群搭建，可以搭建单节点类型，也可以搭建高可用hdfs集群。 hdfs集群采用的是master/slave（主人/奴隶）架构。NameNode是主节点 DataNode是从节点 hdfs集群适合一次存储，多次读取的情形，不适合频繁的修改。因为会产生大量的元数据信">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://yoursite.com/2019/07/10/hadoop-hdfs/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="ty-blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg" type="image/x-icon">
+  
+  <!-- font-awesome CSS -->
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  
+    
+    
+
+</head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/tygitt" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">乌蝇哥</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">hadooper~~</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="fa fa-map-marker"></i> zhengzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="fa fa-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      <!-- <span class="ins-close ins-selectable"><i class="fa fa-times"></i></span> -->
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav">
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="fa fa-fw fa-dashboard"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="fa fa-fw fa-delicious"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="fa fa-fw fa-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="fa fa-fw fa-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="fa fa-fw fa-code"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="fa fa-fw fa-leanpub"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="fa fa-fw fa-gg"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-about active">
+          <a href="/about">
+            
+            <i class="fa fa-fw fa-coffee"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/tygitt" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="fa fa-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="fa fa-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="fa fa-twitter"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="fa fa-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            
+            <p>您好，您是第<span id="busuanzi_value_site_uv">0</span>位访客</p>
+            
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+
+    
+      
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/07/10/hadoop-hdfs/" class="title">hadoop-hdfs</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-07-10T12:54:49.000Z" itemprop="datePublished">2019-07-10</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/07/01/zookeeper总结/" class="title">zookeeper总结与hadoop的安装</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-07-01T13:14:55.000Z" itemprop="datePublished">2019-07-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/06/30/hexo-github搭建个人博客/" class="title">hexo + github搭建个人博客</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-06-30T12:51:08.000Z" itemprop="datePublished">2019-06-30</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/06/30/hello-world/" class="title">Hello World</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-06-30T07:26:57.832Z" itemprop="datePublished">2019-06-30</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-hadoop-hdfs" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      hadoop-hdfs
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="fa fa-calendar-check-o"></i>
+	<a href="/2019/07/10/hadoop-hdfs/" class="article-date">
+	  <time datetime="2019-07-10T12:54:49.000Z" itemprop="datePublished">2019-07-10</time>
+	</a>
+</span>
+        
+        
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="fa fa-eye" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="fa fa-commenting-o"></i> <a href="/2019/07/10/hadoop-hdfs/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+      
+    </div>
+    <div class="article-entry markdown-body" itemprop="articleBody">
+      
+        <h4 id="HDFS-hadoop分布式文件系统"><a href="#HDFS-hadoop分布式文件系统" class="headerlink" title="HDFS-hadoop分布式文件系统"></a>HDFS-hadoop分布式文件系统</h4><p>hdfs(hadoop distributed file system)分布式文件存储系统，hdfs的集群搭建，可以搭建单节点类型，也可以搭建高可用hdfs集群。</p>
+<p>hdfs集群采用的是master/slave（主人/奴隶）架构。NameNode是主节点 DataNode是从节点</p>
+<p>hdfs集群适合一次存储，多次读取的情形，不适合频繁的修改。因为会产生大量的元数据信息</p>
+<p>hdfs采用分块存储，2.x版本 每个block块的大小为128M</p>
+<p>在单节点的hdfs集群中，主要有这么几个角色：</p>
+<ol>
+<li>NameNode：hdfs集群中的主节点，主要负责存储元数据信息（元数据：描述数据的数据，例如名称、时间、大小、路径等信息），以及接收用户的上传下载请求。</li>
+<li>SecondaryNameNode：辅助节点，主要负责NameNode进行元数据信息的管理，负责fsimages与edits 文件的合并。</li>
+<li>DataNode：数据节点，主要负责具体文件的存储，提供存储功能。</li>
+</ol>
+<p>在高可用的hdsf集群之中，会存在两个NameNode。一个是active状态，另一个是standby状态，当第一台NameNode宕机之后，standby状态的NameNode会切换为active状态的NameNode，确保集群的高可用。  高可用状态下的hdfs集群，会有负责进行两个NameNode 信息同步的模块JournalNode，负责两个NameNode之间的信息同步，确保所有的DataNode看到的元数据信息是一致的。高可用hdfs集群，不会有secondaryNameNode的存在，被JournalNode取代。</p>
+<p>NameNode的状态切换主要是通过两个守护进行zkfc来实现。</p>
+<p>常用的hdfs操作命令，与linux的操作类似：</p>
+<ul>
+<li><p>查看指定目录下的所有的文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -ls /(path)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建文件夹， -p表示创建parent文件夹</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -mkdir -p /path/path/..</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文件的剪切，少用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -mv dir</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文件的复制</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -cp file</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文件的删除 ，-r表示递归的删除该路径下的所有，删除后会被收集到垃圾箱（如果配置了的话）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -rm -r /path</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文件的上传，把文件上传到指定的hdfs目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -put file /path</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文件的下载，从hdfs下载到local</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -get hdfsfilr localdir</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文件的权限管理，-R表示递归的为此目录下所有的文件都修改权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -chmod -R 777 /path</span><br></pre></td></tr></table></figure>
+
+<p>改变文件的所属用户和所属组</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -chowm -R  hadoop:hadoop /path</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>高级命令的使用：主要是可以对文件的大小 数量进行限制</p>
+<ul>
+<li><p>设置指定目录的文件上传目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfsadmin -setQuota 2 list</span><br></pre></td></tr></table></figure>
+
+<p>表示list这个文件夹只可以有两个文件，但是文件夹本身也会有一个文件信息，所以用户只能上传一个文件</p>
+</li>
+<li><p>清除文件的数量上传限制</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfsadmin -clrQuota /path</span><br></pre></td></tr></table></figure>
+
+<p>表示清除掉，该路径下的文件上传数量限制</p>
+</li>
+<li><p>对文件的上传大小进行限制</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfsadmin -setSpaceQuota 4k /path</span><br></pre></td></tr></table></figure>
+
+<p>表示对指定路径下的文件，进行文件大小的限制</p>
+</li>
+<li><p>清除文件上传的大小限制</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfsadmin -clrSpaceQuota /path</span><br></pre></td></tr></table></figure>
+
+<p>清除掉指定path的文件夹的文件大小上传限制</p>
+</li>
+</ul>
+<p><strong>在hadoop集群搭建好之后，第一件事就是要对hdfs进行，压力的基准测试，测试hdfs集群的读写速度，和网络带宽是否足够。</strong></p>
+<p><strong>通常hdfs集群的写入速度大约在30MB/s，读取速度大约在100MB/s</strong></p>
+<h4 id="hdfs中的元数据管理"><a href="#hdfs中的元数据管理" class="headerlink" title="hdfs中的元数据管理"></a>hdfs中的元数据管理</h4><p>hdfs的配置信息主要在hdfs-site.xml中进行配置，</p>
+<p>元数据的管理主要由NameNode进行管理，SecondaryNameNode进行辅助管理</p>
+<p>首先NameNode中会有一个fsimages的文件</p>
+<p><strong>fsimages保存着一份最为完整的元数据信息，它存在与NameNode的磁盘和内存之中，会随着元数据信息的增多而变大。</strong></p>
+<p><strong>edies保存着最近一段时间的元数据信息的日志，主要由SecondaryNameNode进行管理</strong></p>
+<p><strong>SecondaryNameNode：主要负责fsimages与edits文件的合并，并清空edits，合并的时机有两个条件，一个edits的大小，另一个是edits存在的时间 ，默认的大小为64M，默认的时间为1h，达到任一条件就会触发fsimages与edits文件和合并。</strong></p>
+<h4 id="hdfs中文件的上传流程"><a href="#hdfs中文件的上传流程" class="headerlink" title="hdfs中文件的上传流程"></a>hdfs中文件的上传流程</h4><ol>
+<li>client发出上传文件的请求，请求NameNode进行文件的上传</li>
+<li>NameNode进行该client是否有权限进行文件的上传操作，并给予回应</li>
+<li>收到可以进行文件上传的回复，client会请求NameNode，文件block块上传的目的地。</li>
+<li>NameNode根据副本个数的配置（默认1个block块会由3个DataNode进行存储），返回3台DataNode的地址给客户端</li>
+<li>客户端找到DataNode建立pipeline管道连接，进行文件的上传，文件的上传以packet包（默认64K）的方式上传到DataNode中</li>
+<li>DataNode接受完第一个block会给Client一个ack确认机制，client进行下一个block的上传</li>
+</ol>
+<h4 id="hdfs中文件的下载流程"><a href="#hdfs中文件的下载流程" class="headerlink" title="hdfs中文件的下载流程"></a>hdfs中文件的下载流程</h4><ol>
+<li>client发出文件的下载请求，请求NameNode进行文件的下载</li>
+<li>NameNode判断client的权限，并给予回复，返回文件的部分或全部的block列表</li>
+<li>client会找到最近的DataNode进行文件的下载，（如果客户端本身就是DataNode，就会从本机进行数据的获取，短路读取特性）</li>
+<li>底层是建立Socket Stream 进行文件的读取</li>
+<li>当读取完NameNode返回的block列表之后，文件还没下载完成，会继续请求NameNode接下来的block所在的DataNode</li>
+<li>每读取完成一个block，都会进行checksum的验证，如果下载出现错误，client会从另一个DataNode进行下载，原来下载的数据，会被丢弃掉，从头开始下载。</li>
+<li>最终读取到所有的block,合并成一个完整的文件</li>
+</ol>
+<p><strong>值得注意的是,文件的上传和下载,数据流不会经过NameNode,NameNode只会返回相应的响应,给出DataNode的地址。</strong></p>
+<h4 id="hdfs的javaAPI操作"><a href="#hdfs的javaAPI操作" class="headerlink" title="hdfs的javaAPI操作"></a>hdfs的javaAPI操作</h4><p>使用javaAPI，进行hdfs的操作。</p>
+<p>使用url进行数据的访问：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    <span class="comment">// 1.注册hfds的url地址，让java能够识别hdfs的url</span></span><br><span class="line">    URL.setURLStreamHandlerFactory(<span class="keyword">new</span> FsUrlStreamHandlerFactory());</span><br><span class="line">    </span><br><span class="line">    String url = <span class="string">"hdfs://node01:8020/test/input/test.log"</span>;</span><br><span class="line">    <span class="comment">// 2.打开文件的输入流</span></span><br><span class="line">    InputStream input = <span class="keyword">new</span> URL(url).openStream();</span><br><span class="line">    <span class="comment">// 3.打开输出流 下载到本地的路径</span></span><br><span class="line">    FileOutPutStream output = <span class="keyword">new</span> FileOutPutStream(<span class="function">New <span class="title">File</span><span class="params">(String path)</span>)</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 4.使用commons工具列中的copy方法 进行输入输出流的对接</span></span><br><span class="line">    IOUtils.copy(input,output);</span><br><span class="line">    <span class="comment">// 5.关闭流 使用commons的IOUtils类进行关闭流</span></span><br><span class="line">    IOUtils.closeQuietly(input);</span><br><span class="line">    IOUtils.closeQuietly(output);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 执行完毕，就会把hdfs集群中的指定url下的文件，下载到本地的路径</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用文件系统的方式进行hdfs上数据的访问</strong></p>
+<ol>
+<li><p>获得FileSystem对象，有四种方式来进行 FIleSystem对象的获取，获得FileSystem回想，剩下的就好说。</p>
+<p><strong>获得FileSystem对象的四种方法</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 修改Configuration的默认FileSystem</span></span><br><span class="line">Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line">configuration.set(<span class="string">"fs.defaultFS"</span>,<span class="string">"hdfs://node01:8020"</span>);</span><br><span class="line">FileSystem fileSystem = FileSystem.get(configuration);</span><br><span class="line"><span class="comment">// 使用FileSystem的静态方法，传入Configuration获得FileSystem对象</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用FileSystem的静态方法传入 URI 和Configuration 在URI中指定路径</span></span><br><span class="line">URI uri = <span class="keyword">new</span> URI(<span class="string">"hdfs://node01:8020"</span>);</span><br><span class="line">Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line">FileSystem fileSystem = FileSystem.get(uri,configuration);</span><br><span class="line"><span class="comment">//传入两个参数进行对象的获取</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用FileSystem的静态方法，newInstance()方法，传入Configuration 进行对象的获取</span></span><br><span class="line">Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line">configuration.set(<span class="string">"fs.defaultFS"</span>,<span class="string">"hdfs://node01:8020"</span>);</span><br><span class="line"><span class="comment">// 修改Configuration的默认文件系统，为hdfs文件系统</span></span><br><span class="line">FileSystem fileSystem = FileSystem.newInstance(configuration);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用FileSystem的，newInstance()方法进行对象的获取</span></span><br><span class="line">URI uri = <span class="keyword">new</span> URI(<span class="string">"hdfs://node01:8020"</span>);</span><br><span class="line">Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line">FileSystem fileSystem = FileSystem.newInstance(uri,configuration);</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</li>
+</ol>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://yoursite.com/2019/07/10/hadoop-hdfs/" title="hadoop-hdfs" target="_blank" rel="external">http://yoursite.com/2019/07/10/hadoop-hdfs/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/tygitt" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/tygitt" target="_blank"><span class="text-dark">乌蝇哥</span><small class="ml-1x">hadooper~~</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+       
+    <div id="uyan_frame"></div>
+
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2019/07/01/zookeeper总结/" title="zookeeper总结与hadoop的安装">下一篇&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,wechat"></div>
+  </div>
+  
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/tygitt" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="fa fa-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="fa fa-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="fa fa-twitter"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="fa fa-rss"></i></a></li>
+        
+    </ul>
+
+    <!--<div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/tygitt" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>-->
+</footer>
+  <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.js"></script>
+<script src="/js/application.js"></script>
+  
+    
+    
+    
+        <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+    
+    
+        
+<script defer src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+    
+    
+        
+    
+    <script defer type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=[object Object]"></script>
+
+
+    
+    
+
+
+
+</body>
+</html>
