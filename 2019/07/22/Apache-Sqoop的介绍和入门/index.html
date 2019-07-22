@@ -16,21 +16,21 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>apache flume | myblog</title>
-  <meta name="description" content="Apache Flumeflume官网介绍：  ​        Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible arc">
-<meta name="keywords" content="flume">
+  <title>Apache Sqoop的介绍和入门 | myblog</title>
+  <meta name="description" content="Apache Sqoop ​        Sqoop(发音：skup)是一款开源的工具，主要用于在Hadoop(Hive)与传统的数据库(mysql、postgresql…)间进行数据的传递，可以将一个关系型数据库（例如 ： MySQL ,Oracle ,Postgres等）中的数据导进到Hadoop的HDFS中，也可以将HDFS的数据导进到关系型数据库中。  ​        Sqoop意思为">
+<meta name="keywords" content="Apache Sqoop">
 <meta property="og:type" content="article">
-<meta property="og:title" content="apache flume">
-<meta property="og:url" content="http://tygitt.github.io/2019/07/22/apache-flume/index.html">
+<meta property="og:title" content="Apache Sqoop的介绍和入门">
+<meta property="og:url" content="http://tygitt.github.io/2019/07/22/Apache-Sqoop的介绍和入门/index.html">
 <meta property="og:site_name" content="ty-blog">
-<meta property="og:description" content="Apache Flumeflume官网介绍：  ​        Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible arc">
+<meta property="og:description" content="Apache Sqoop ​        Sqoop(发音：skup)是一款开源的工具，主要用于在Hadoop(Hive)与传统的数据库(mysql、postgresql…)间进行数据的传递，可以将一个关系型数据库（例如 ： MySQL ,Oracle ,Postgres等）中的数据导进到Hadoop的HDFS中，也可以将HDFS的数据导进到关系型数据库中。  ​        Sqoop意思为">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-22T14:44:34.961Z">
+<meta property="og:updated_time" content="2019-07-22T16:08:33.251Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="apache flume">
-<meta name="twitter:description" content="Apache Flumeflume官网介绍：  ​        Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible arc">
+<meta name="twitter:title" content="Apache Sqoop的介绍和入门">
+<meta name="twitter:description" content="Apache Sqoop ​        Sqoop(发音：skup)是一款开源的工具，主要用于在Hadoop(Hive)与传统的数据库(mysql、postgresql…)间进行数据的传递，可以将一个关系型数据库（例如 ： MySQL ,Oracle ,Postgres等）中的数据导进到Hadoop的HDFS中，也可以将HDFS的数据导进到关系型数据库中。  ​        Sqoop意思为">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://tygitt.github.io/2019/07/22/apache-flume/index.html">
+  <link rel="canonical" href="http://tygitt.github.io/2019/07/22/Apache-Sqoop的介绍和入门/index.html">
   
     <link rel="alternate" href="/atom.xml" title="ty-blog" type="application/atom+xml">
   
@@ -350,14 +350,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-apache-flume" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-Apache-Sqoop的介绍和入门" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      apache flume
+      Apache Sqoop的介绍和入门
     </h1>
   
 
@@ -365,15 +365,15 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="fa fa-calendar-check-o"></i>
-	<a href="/2019/07/22/apache-flume/" class="article-date">
-	  <time datetime="2019-07-22T14:43:57.000Z" itemprop="datePublished">2019-07-22</time>
+	<a href="/2019/07/22/Apache-Sqoop的介绍和入门/" class="article-date">
+	  <time datetime="2019-07-22T15:11:00.000Z" itemprop="datePublished">2019-07-22</time>
 	</a>
 </span>
         
         
   <span class="article-tag">
     <i class="fa fa-tag"></i>
-	<a class="article-tag-link" href="/tags/flume/">flume</a>
+	<a class="article-tag-link" href="/tags/Apache-Sqoop/">Apache Sqoop</a>
   </span>
 
 
@@ -386,45 +386,87 @@
 	</span>
 
 
-        <span class="post-comment"><i class="fa fa-commenting-o"></i> <a href="/2019/07/22/apache-flume/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="fa fa-commenting-o"></i> <a href="/2019/07/22/Apache-Sqoop的介绍和入门/#comments" class="article-comment-link">评论</a></span>
         
       </div>
       
     </div>
     <div class="article-entry markdown-body" itemprop="articleBody">
       
-        <h2 id="Apache-Flume"><a href="#Apache-Flume" class="headerlink" title="Apache Flume"></a>Apache Flume</h2><p>flume官网介绍：</p>
-<blockquote>
-<p>​        Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible architecture based on streaming data flows. It is robust and fault tolerant with tunable reliability mechanisms and many failover and recovery mechanisms. It uses a simple extensible data model that allows for online analytic application.</p>
-<p>​        Flume是一种分布式，可靠且可用的服务，用于有效地收集，聚合和移动大量日志数据。它具有基于流数据流的简单灵活的架构。它具有可靠的可靠性机制和许多故障转移和恢复机制，具有强大的容错性。它使用简单的可扩展数据模型，允许在线分析应用程序。</p>
+        <h3 id="Apache-Sqoop"><a href="#Apache-Sqoop" class="headerlink" title="Apache Sqoop"></a>Apache Sqoop</h3><blockquote>
+<p>​        Sqoop(发音：skup)是一款开源的工具，主要用于在Hadoop(Hive)与传统的数据库(mysql、postgresql…)间进行数据的传递，可以将一个关系型数据库<em>（例如 ： MySQL ,Oracle ,Postgres等）</em>中的数据导进到Hadoop的HDFS中，也可以将HDFS的数据导进到关系型数据库中。</p>
 </blockquote>
-<p>百度百科介绍：</p>
-<blockquote>
-<p>​        Flume是Cloudera提供的一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的系统，Flume支持在日志系统中定制各类数据发送方，用于收集数据；同时，Flume提供对数据进行简单处理，并写到各种数据接受方（可定制）的能力。</p>
-</blockquote>
-<p><a href="http://flume.apache.org" target="_blank" rel="noopener">flume官网</a></p>
+<p>​        Sqoop意思为SQL TO HADOOP，主要是在hadoop（hive）与RDBMS（关系型数据库管理系统）之间进行数据的交换。</p>
+<p>​        Sqoop的工作机制是将导入或者导出的命令，翻译为MapReduce程序来实现的，需要注意的是，这里的导入导出是站在hadoop的角度上。</p>
 <hr>
-<h4 id="flume的使用"><a href="#flume的使用" class="headerlink" title="flume的使用"></a>flume的使用</h4><p>​        flume的使用比较简单，主要是配置flume的三个组件：Source、Sink、Channel。</p>
-<p><strong>Source</strong> 用来对接数据源，<strong>Sink</strong>用来指代数据的下沉目的地，<strong>Channel</strong>表示Source与Sink之间的管道。</p>
-<h5 id="Source"><a href="#Source" class="headerlink" title="Source"></a>Source</h5><p>​        常用的Source有：Avor Source  用来对接上一个Flume agent 的Sink</p>
-<p>​                                        Exec Source  用来对接一个给定的命令，所产生的结果。例如 tail -F  cat </p>
-<p>​                                        Spooling Directory Source 对接一个给定的文件夹，读取其中的文件  等等。。。</p>
-<p><strong>Sink</strong></p>
-<p>​        常用的Sink有：     HDFS Sink : 将数据下沉到HDFS上</p>
-<p>​                                        Hive Sink ：将数据下沉到Hive中</p>
-<p>​                                        Logger Sink ：将数据下沉到日志中</p>
-<p>​                                        Kafka Sink ：下沉到kafka 队列  等等。。。。</p>
-<p><strong>Channel</strong>  一般使用 Memory Channel  把缓冲数据放在内存中。</p>
-<p>​        如果，默认的功能，达不到要求，可以自定义组件。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>通常情况下的启动命令</span><br><span class="line">bin/flume-ng agent -c conf -f conf/myconf.conf -n a1  -Dflume.root.logger=INFO,console</span><br></pre></td></tr></table></figure>
+<h4 id="Sqoop的shell操作"><a href="#Sqoop的shell操作" class="headerlink" title="Sqoop的shell操作"></a>Sqoop的shell操作</h4><ol>
+<li><p>Sqoop的全量数据导入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/sqoop import  --connect jdbc:mysql://mysqlserver:3306/database  --username  username  --password  password  --delete-target-dir  --target-dir  /hdfs/path  --talbe  tablename  --m 1</span><br></pre></td></tr></table></figure>
 
-<hr>
-<h4 id="flume的failover和load-balance"><a href="#flume的failover和load-balance" class="headerlink" title="flume的failover和load_balance"></a>flume的failover和load_balance</h4><p>​        failover：flume的容错机制，用来配置flume的高可用，一台flume停止工作后，可以立马有另一台flume顶上。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>example</span><br><span class="line">a1.sinkgroups = g1</span><br><span class="line">a1.sinkgroups.g1.sinks = k1 k2</span><br><span class="line">a1.sinkgroups.g1.processor.type = load_balance</span><br><span class="line"><span class="meta">#</span> 配置负载均衡，然后单独配置组中的每一个节点。</span><br></pre></td></tr></table></figure>
+<p>import的部分参数。</p>
+</li>
+<li><p>全量导入mysql表数据到hive</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/sqoop import  --connect jdbc:mysql://mysqlserver:3306/database  --username username  --password  password  --table  destination table  --hive-import --m 1        --hive-database  hivedatabasename</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>导入部分表数据（使用where）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/sqoop import  --connect jdbc:mysql://mysqlserver:3306/database  --username mysqlusername  --password  mysqlpassword  --where query  --target-dir  dir  --table table  --m  1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>导入部分表数据（使用query）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bin/sqoop import --connect jdbc:mysql://mysqlserver:3306/database  --username  mysqlusername  --password mysqlpassword  --target-dir dir  --query  query  \ </span><br><span class="line">--split-by id  --fields-terminated-by  '\t'  -m num</span><br></pre></td></tr></table></figure>
 
-<p>​        failover：load_balance，flume的负载均衡机制。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>example</span><br><span class="line">a1.sinkgroups = g1</span><br><span class="line">a1.sinkgroups.g1.sinks = k1 k2</span><br><span class="line">a1.sinkgroups.g1.processor.type = load_balance</span><br><span class="line">a1.sinkgroups.g1.processor.backoff = true</span><br><span class="line">a1.sinkgroups.g1.processor.selector = random</span><br><span class="line"><span class="meta">#</span> 默认使用的是 round_robin 轮询</span><br></pre></td></tr></table></figure>
+<p>使用query参数需要注意 ：</p>
+<ul>
+<li><p>query语句中必须添加where条件</p>
+</li>
+<li><p>where条件后必须要有 $CONDITIONS 这个字符串</p>
+</li>
+<li><p>query语句必须使用单引号，不可以使用双引号</p>
+<p>sqoop 命令中，–split-by id 通常配合-m 10 参数使用。用于指定根据哪个字段进行划分并启动多少个 maptask</p>
+</li>
+</ul>
+</li>
+<li><p>增量导入</p>
+<p>​        一般情况下，数据的导入都是增量的去导入数据，并不需要把所有数据都添加到hive或hdfs中，因为这样可能会造成数据重复的问题。</p>
+<p>相关参数：</p>
+<ul>
+<li>– check- - column (col)<br>用来指定一些列，这些列在增量导入时用来检查这些数据是否作为增量数据进行导入，和关系型数据库中的自增字段及时间戳类似。<br>注意:这些被指定的列的类型不能使任意字符类型，如 char、varchar 等类型都是不可以的，同时– check-column 可以去指定多个列。</li>
+<li>– incremental (mode)<br>append：追加，比如对大于 last-value 指定的值之后的记录进行追加导入。<br>lastmodified：最后的修改时间，追加 last-value 指定的日期之后的记录。</li>
+<li>– last- - value  (value)<br>指定自从上次导入后列的最大值（大于该指定的值），也可以自己设定某一值。</li>
+</ul>
+<p>5.1 Append模式增量导入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/sqoop  import  --connect jdbc:mysql://mysqlserver:3306/database  --username  mysqlusername   --password  mysqlpassword  --table tablename  --m num  --target-dir dir  --incremental append  --check-column  id  --last-value  lastvalue</span><br></pre></td></tr></table></figure>
 
+<p>5.2 Lastmodified增量模式导入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/sqoop import  --connect jdbc:mysql://mysqlserver:3306/database  --username mysqlusername --password mysqlpassword --table tablename  --target-dir  target-dir    --check-column  columnname  --incremental  lastmodified  --last-value last-value     --m num  --append</span><br></pre></td></tr></table></figure>
+
+<p>使用lastmodified模式处理增量数据，会将last-value值的数据当作增量数据导入。</p>
+<p>5.3 Lastmodified 模式：append、merge-key</p>
+<p>​        使用 lastmodified 模式进行增量处理要指定增量数据是以append 模式(附加) 还是merge- - key(合并)模式添加</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://node-1:3306/userdb \</span><br><span class="line">--username root \</span><br><span class="line">--password hadoop \</span><br><span class="line">--table customertest \</span><br><span class="line">--target-dir /lastmodifiedresult \</span><br><span class="line">--check-column last_mod \</span><br><span class="line">--incremental lastmodified \</span><br><span class="line">--last-value "2019-05-28 18:42:06" \</span><br><span class="line">--m 1 \</span><br><span class="line">--merge-key id</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h4 id="Sqoop的数据导出"><a href="#Sqoop的数据导出" class="headerlink" title="Sqoop的数据导出"></a>Sqoop的数据导出</h4><p>​        将数据从 Hadoop 生态体系导出到 RDBMS 数据库导出前，目标表必须存在于目标数据库中。</p>
+<p>​        export 有三种模式：</p>
+<p>​        默认模式：是从将文件中的数据使用 INSERT 语句插入到表中。<br>​        更新模式：Sqoop 将生成 UPDATE 替换数据库中现有记录的语句。<br>​        调用模式：Sqoop 将为每条记录创建一个存储过程调用。</p>
+<ol>
+<li><p>默认模式导出HDFS到mysql</p>
+<p>​        默认情况下，sqoop export 将每行输入记录转换成一条 INSERT 语句，添加到目标数据库表中。如果数据库中的表具有约束条件（例如，其值必须唯一的主键列）并且已有数据存在，则必须注意避免插入违反这些约束条件的记录。如果INSERT 语句失败，导出过程将失败。 <strong>此模式主要用于将记录导出到可以接收这些结果的空表中。</strong>通常用于全表数据导出。</p>
+<p>​        导出时可以是将 Hive 表中的全部记录或者 HDFS 数据（可以是全部字段也可以部分字段）导出到 Mysql 目标表。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bin/sqoop export \</span><br><span class="line">--connect jdbc:mysql://node-1:3306/userdb \</span><br><span class="line">--username root \</span><br><span class="line">--password hadoop \</span><br><span class="line">--table employee \</span><br><span class="line">--export-dir /emp/emp_data</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新模式（updateonly模式）</p>
+<p>– update-key，更新标识，即根据某个字段进行更新，例如 id，可以指定多个更新标识的字段，多个字段之间用逗号分隔。<br>– updatemod，指定 updateonly（默认模式），仅仅更新已存在的数据记录，不会插入新纪录。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bin/sqoop export \</span><br><span class="line">--connect jdbc:mysql://node-1:3306/userdb \</span><br><span class="line">--username root --password hadoop \</span><br><span class="line">--table updateonly \</span><br><span class="line">--export-dir /updateonly_2/ \</span><br><span class="line">--update-key id \</span><br><span class="line">--update-mode updateonly</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新导出（allowinsert模式）</p>
+<p>– update-key，更新标识，即根据某个字段进行更新，例如 id，可以指定多个更新标识的字段，多个字段之间用逗号分隔。<br>– updatemod，指定 allowinsert，更新已存在的数据记录，同时插入新纪录。实质上是一个 insert &amp; update 的操作。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bin/sqoop export \</span><br><span class="line">--connect jdbc:mysql://node-1:3306/userdb \</span><br><span class="line">--username root --password hadoop \</span><br><span class="line">--table allowinsert \</span><br><span class="line">--export-dir /allowinsert_2/ \</span><br><span class="line">--update-key id \</span><br><span class="line">--update-mode allowinsert</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
 
       
     </div>
@@ -434,7 +476,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://tygitt.github.io/2019/07/22/apache-flume/" title="apache flume" target="_blank" rel="external">http://tygitt.github.io/2019/07/22/apache-flume/</a>
+      <a href="http://tygitt.github.io/2019/07/22/Apache-Sqoop的介绍和入门/" title="Apache Sqoop的介绍和入门" target="_blank" rel="external">http://tygitt.github.io/2019/07/22/Apache-Sqoop的介绍和入门/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -482,13 +524,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2019/07/22/Apache-Sqoop的介绍和入门/" title="Apache Sqoop的介绍和入门"><i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;上一篇</a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2019/07/11/hadoop-mapreduce/" title="hadoop-mapreduce">下一篇&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+      <a href="/2019/07/22/apache-flume/" title="apache flume">下一篇&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i></a>
     </li>
     
   </ul>
