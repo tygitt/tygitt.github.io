@@ -16,16 +16,21 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>myblog</title>
-  <meta property="og:type" content="website">
-<meta property="og:title" content="ty-blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <title>apache flume | myblog</title>
+  <meta name="description" content="Apache Flumeflume官网介绍：  ​        Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible arc">
+<meta name="keywords" content="flume">
+<meta property="og:type" content="article">
+<meta property="og:title" content="apache flume">
+<meta property="og:url" content="http://yoursite.com/2019/07/22/apache-flume/index.html">
 <meta property="og:site_name" content="ty-blog">
+<meta property="og:description" content="Apache Flumeflume官网介绍：  ​        Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible arc">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-22T14:44:34.961Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ty-blog">
+<meta name="twitter:title" content="apache flume">
+<meta name="twitter:description" content="Apache Flumeflume官网介绍：  ​        Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible arc">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://yoursite.com/index.html">
+  <link rel="canonical" href="http://yoursite.com/2019/07/22/apache-flume/index.html">
   
     <link rel="alternate" href="/atom.xml" title="ty-blog" type="application/atom+xml">
   
@@ -342,153 +347,159 @@
 </aside>
 
   
-  <main class="main" role="main">
   
-  <div class="content article-list">
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-apache-flume" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
+    <div class="article-header">
+      
+        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/22/apache-flume/">apache flume</a>
+    <h1 class="article-title" itemprop="name">
+      apache flume
     </h1>
   
 
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
+      
+      <div class="article-meta">
+        <span class="article-date">
     <i class="fa fa-calendar-check-o"></i>
 	<a href="/2019/07/22/apache-flume/" class="article-date">
-	  <time datetime="2019-07-22T14:43:57.000Z" itemprop="datePublished">7月 22</time>
+	  <time datetime="2019-07-22T14:43:57.000Z" itemprop="datePublished">2019-07-22</time>
 	</a>
 </span>
-    
-    
+        
+        
   <span class="article-tag">
     <i class="fa fa-tag"></i>
 	<a class="article-tag-link" href="/tags/flume/">flume</a>
   </span>
 
 
-    <span class="post-comment"><i class="fa fa-commenting-o"></i> <a href="/2019/07/22/apache-flume/#comments" class="article-comment-link">评论</a></span>
+        
+	<span class="article-read hidden-xs">
+	    <i class="fa fa-eye" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="fa fa-commenting-o"></i> <a href="/2019/07/22/apache-flume/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+      
+    </div>
+    <div class="article-entry markdown-body" itemprop="articleBody">
+      
+        <h2 id="Apache-Flume"><a href="#Apache-Flume" class="headerlink" title="Apache Flume"></a>Apache Flume</h2><p>flume官网介绍：</p>
+<blockquote>
+<p>​        Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible architecture based on streaming data flows. It is robust and fault tolerant with tunable reliability mechanisms and many failover and recovery mechanisms. It uses a simple extensible data model that allows for online analytic application.</p>
+<p>​        Flume是一种分布式，可靠且可用的服务，用于有效地收集，聚合和移动大量日志数据。它具有基于流数据流的简单灵活的架构。它具有可靠的可靠性机制和许多故障转移和恢复机制，具有强大的容错性。它使用简单的可扩展数据模型，允许在线分析应用程序。</p>
+</blockquote>
+<p>百度百科介绍：</p>
+<blockquote>
+<p>​        Flume是Cloudera提供的一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的系统，Flume支持在日志系统中定制各类数据发送方，用于收集数据；同时，Flume提供对数据进行简单处理，并写到各种数据接受方（可定制）的能力。</p>
+</blockquote>
+<p><a href="http://flume.apache.org" target="_blank" rel="noopener">flume官网</a></p>
+<hr>
+<h4 id="flume的使用"><a href="#flume的使用" class="headerlink" title="flume的使用"></a>flume的使用</h4><p>​        flume的使用比较简单，主要是配置flume的三个组件：Source、Sink、Channel。</p>
+<p><strong>Source</strong> 用来对接数据源，<strong>Sink</strong>用来指代数据的下沉目的地，<strong>Channel</strong>表示Source与Sink之间的管道。</p>
+<h5 id="Source"><a href="#Source" class="headerlink" title="Source"></a>Source</h5><p>​        常用的Source有：Avor Source  用来对接上一个Flume agent 的Sink</p>
+<p>​                                        Exec Source  用来对接一个给定的命令，所产生的结果。例如 tail -F  cat </p>
+<p>​                                        Spooling Directory Source 对接一个给定的文件夹，读取其中的文件  等等。。。</p>
+<p><strong>Sink</strong></p>
+<p>​        常用的Sink有：     HDFS Sink : 将数据下沉到HDFS上</p>
+<p>​                                        Hive Sink ：将数据下沉到Hive中</p>
+<p>​                                        Logger Sink ：将数据下沉到日志中</p>
+<p>​                                        Kafka Sink ：下沉到kafka 队列  等等。。。。</p>
+<p><strong>Channel</strong>  一般使用 Memory Channel  把缓冲数据放在内存中。</p>
+<p>​        如果，默认的功能，达不到要求，可以自定义组件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>通常情况下的启动命令</span><br><span class="line">bin/flume-ng agent -c conf -f conf/myconf.conf -n a1  -Dflume.root.logger=INFO,console</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="flume的failover和load-balance"><a href="#flume的failover和load-balance" class="headerlink" title="flume的failover和load_balance"></a>flume的failover和load_balance</h4><p>​        failover：flume的容错机制，用来配置flume的高可用，一台flume停止工作后，可以立马有另一台flume顶上。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>example</span><br><span class="line">a1.sinkgroups = g1</span><br><span class="line">a1.sinkgroups.g1.sinks = k1 k2</span><br><span class="line">a1.sinkgroups.g1.processor.type = load_balance</span><br><span class="line"><span class="meta">#</span> 配置负载均衡，然后单独配置组中的每一个节点。</span><br></pre></td></tr></table></figure>
+
+<p>​        failover：load_balance，flume的负载均衡机制。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>example</span><br><span class="line">a1.sinkgroups = g1</span><br><span class="line">a1.sinkgroups.g1.sinks = k1 k2</span><br><span class="line">a1.sinkgroups.g1.processor.type = load_balance</span><br><span class="line">a1.sinkgroups.g1.processor.backoff = true</span><br><span class="line">a1.sinkgroups.g1.processor.selector = random</span><br><span class="line"><span class="meta">#</span> 默认使用的是 round_robin 轮询</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
     
-  </p>
-</article>
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://yoursite.com/2019/07/22/apache-flume/" title="apache flume" target="_blank" rel="external">http://yoursite.com/2019/07/22/apache-flume/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/tygitt" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/tygitt" target="_blank"><span class="text-dark">乌蝇哥</span><small class="ml-1x">hadooper~~</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+       
+    <div id="uyan_frame"></div>
 
     
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/10/hadoop-hdfs/">hadoop-hdfs</a>
-    </h1>
-  
+  </section>
 
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2019/07/10/hadoop-hdfs/" title="hadoop-hdfs">下一篇&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,wechat"></div>
   </div>
   
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="fa fa-calendar-check-o"></i>
-	<a href="/2019/07/10/hadoop-hdfs/" class="article-date">
-	  <time datetime="2019-07-10T12:54:49.000Z" itemprop="datePublished">7月 10</time>
-	</a>
-</span>
-    
-    
-
-    <span class="post-comment"><i class="fa fa-commenting-o"></i> <a href="/2019/07/10/hadoop-hdfs/#comments" class="article-comment-link">评论</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/01/zookeeper总结/">zookeeper总结与hadoop的安装</a>
-    </h1>
-  
-
   </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="fa fa-calendar-check-o"></i>
-	<a href="/2019/07/01/zookeeper总结/" class="article-date">
-	  <time datetime="2019-07-01T13:14:55.000Z" itemprop="datePublished">7月 1</time>
-	</a>
-</span>
-    
-    
-
-    <span class="post-comment"><i class="fa fa-commenting-o"></i> <a href="/2019/07/01/zookeeper总结/#comments" class="article-comment-link">评论</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/30/hexo-github搭建个人博客/">hexo + github搭建个人博客</a>
-    </h1>
+</nav>
   
 
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="fa fa-calendar-check-o"></i>
-	<a href="/2019/06/30/hexo-github搭建个人博客/" class="article-date">
-	  <time datetime="2019-06-30T12:51:08.000Z" itemprop="datePublished">6月 30</time>
-	</a>
-</span>
-    
-    
 
-    <span class="post-comment"><i class="fa fa-commenting-o"></i> <a href="/2019/06/30/hexo-github搭建个人博客/#comments" class="article-comment-link">评论</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/30/hello-world/">Hello World</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="fa fa-calendar-check-o"></i>
-	<a href="/2019/06/30/hello-world/" class="article-date">
-	  <time datetime="2019-06-30T07:26:57.832Z" itemprop="datePublished">6月 30</time>
-	</a>
-</span>
-    
-    
-
-    <span class="post-comment"><i class="fa fa-commenting-o"></i> <a href="/2019/06/30/hello-world/#comments" class="article-comment-link">评论</a></span>
-    
-  </p>
-</article>
-
-    
-  </div>
-
-   
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -549,6 +560,12 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
     
+    
+        
+    
+    <script defer type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=[object Object]"></script>
+
+
     
     
 
