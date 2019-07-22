@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>hadoop-mapreduce | myblog</title>
+  <meta name="description" content="hadoop-MapReduce​        MapReduce是hadoop中的一个核心组件，是分布式的计算框架。整体的理念是“分而治之”。 ​        其中map表示对任务的划分，把一个大的任务划分为若干个小任务，这些小任务并且是并行执行的，几乎互不干扰。reduce表示对map阶段的结果进行汇总。得到我们想要的结果 MapReduce的入门程序-wordCount 自定义Mappe">
+<meta name="keywords" content="hadoop">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hadoop-mapreduce">
+<meta property="og:url" content="http://yoursite.com/2019/07/11/hadoop-mapreduce/index.html">
+<meta property="og:site_name" content="ty-blog">
+<meta property="og:description" content="hadoop-MapReduce​        MapReduce是hadoop中的一个核心组件，是分布式的计算框架。整体的理念是“分而治之”。 ​        其中map表示对任务的划分，把一个大的任务划分为若干个小任务，这些小任务并且是并行执行的，几乎互不干扰。reduce表示对map阶段的结果进行汇总。得到我们想要的结果 MapReduce的入门程序-wordCount 自定义Mappe">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-22T14:57:26.258Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hadoop-mapreduce">
+<meta name="twitter:description" content="hadoop-MapReduce​        MapReduce是hadoop中的一个核心组件，是分布式的计算框架。整体的理念是“分而治之”。 ​        其中map表示对任务的划分，把一个大的任务划分为若干个小任务，这些小任务并且是并行执行的，几乎互不干扰。reduce表示对map阶段的结果进行汇总。得到我们想要的结果 MapReduce的入门程序-wordCount 自定义Mappe">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://yoursite.com/2019/07/11/hadoop-mapreduce/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="ty-blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg" type="image/x-icon">
+  
+  <!-- font-awesome CSS -->
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  
+    
+    
+
+</head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/tygitt" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">乌蝇哥</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">hadooper~~</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="fa fa-map-marker"></i> zhengzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="fa fa-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      <!-- <span class="ins-close ins-selectable"><i class="fa fa-times"></i></span> -->
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav">
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="fa fa-fw fa-dashboard"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="fa fa-fw fa-delicious"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="fa fa-fw fa-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="fa fa-fw fa-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="fa fa-fw fa-code"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="fa fa-fw fa-leanpub"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="fa fa-fw fa-gg"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-about active">
+          <a href="/about">
+            
+            <i class="fa fa-fw fa-coffee"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/tygitt" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="fa fa-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="fa fa-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="fa fa-twitter"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="fa fa-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            
+            <p>您好，您是第<span id="busuanzi_value_site_uv">0</span>位访客</p>
+            
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/flume/">flume</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/flume/" style="font-size: 13px;">flume</a> <a href="/tags/hadoop/" style="font-size: 13px;">hadoop</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/07/22/apache-flume/" class="title">apache flume</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-07-22T14:43:57.000Z" itemprop="datePublished">2019-07-22</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/07/11/hadoop-mapreduce/" class="title">hadoop-mapreduce</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-07-11T12:47:10.000Z" itemprop="datePublished">2019-07-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/07/10/hadoop-hdfs/" class="title">hadoop-hdfs</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-07-10T12:54:49.000Z" itemprop="datePublished">2019-07-10</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/07/01/zookeeper总结/" class="title">zookeeper总结与hadoop的安装</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-07-01T13:14:55.000Z" itemprop="datePublished">2019-07-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/06/30/hexo-github搭建个人博客/" class="title">hexo + github搭建个人博客</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-06-30T12:51:08.000Z" itemprop="datePublished">2019-06-30</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-hadoop-mapreduce" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      hadoop-mapreduce
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="fa fa-calendar-check-o"></i>
+	<a href="/2019/07/11/hadoop-mapreduce/" class="article-date">
+	  <time datetime="2019-07-11T12:47:10.000Z" itemprop="datePublished">2019-07-11</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="fa fa-tag"></i>
+	<a class="article-tag-link" href="/tags/hadoop/">hadoop</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="fa fa-eye" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="fa fa-commenting-o"></i> <a href="/2019/07/11/hadoop-mapreduce/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+      
+    </div>
+    <div class="article-entry markdown-body" itemprop="articleBody">
+      
+        <h3 id="hadoop-MapReduce"><a href="#hadoop-MapReduce" class="headerlink" title="hadoop-MapReduce"></a>hadoop-MapReduce</h3><p>​        MapReduce是hadoop中的一个核心组件，是分布式的计算框架。整体的理念是“分而治之”。</p>
+<p>​        其中map表示对任务的划分，把一个大的任务划分为若干个小任务，这些小任务并且是并行执行的，几乎互不干扰。reduce表示对map阶段的结果进行汇总。得到我们想要的结果</p>
+<h4 id="MapReduce的入门程序-wordCount"><a href="#MapReduce的入门程序-wordCount" class="headerlink" title="MapReduce的入门程序-wordCount"></a>MapReduce的入门程序-wordCount</h4><ol>
+<li><p>自定义Mapper逻辑</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CountMapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>,<span class="title">Text</span>,<span class="title">Text</span>,<span class="title">IntWritable</span>&gt;</span>&#123;</span><br><span class="line">    <span class="comment">// 重写map方法</span></span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key,Text value ,Context context)</span></span>&#123;</span><br><span class="line">        String split = value.toString().split(<span class="string">","</span>);</span><br><span class="line">        <span class="keyword">for</span>(String s:split)&#123;</span><br><span class="line">            context.write(<span class="keyword">new</span> Text(s),<span class="keyword">new</span> IntWritable(<span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自定义Reducer逻辑</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CountReducer</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">Text</span>,<span class="title">IntWritable</span>,<span class="title">Text</span>,<span class="title">IntWritable</span>&gt;</span>&#123;</span><br><span class="line">    <span class="comment">// 重写reduce方法</span></span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(Text key,Iterable&lt;IntWritable&gt; values ,Context context)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(IntWritable value : values)&#123;</span><br><span class="line">            count += value.get();</span><br><span class="line">        &#125;</span><br><span class="line">        context.write(key,<span class="keyword">new</span> IntWritable(count));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>组装main方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JobMain</span> <span class="keyword">extends</span> <span class="title">Configured</span> <span class="keyword">implements</span> <span class="title">Tool</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">run</span><span class="params">(String[] strings)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        Job job = Job.getInstance(<span class="keyword">super</span>.getConf(),<span class="string">"JobMain"</span>);</span><br><span class="line">        </span><br><span class="line">        job.setInputFormatClass(TextInputFormat.class);</span><br><span class="line">        TextInputFormat.addInputPath(job,<span class="keyword">new</span> Path(<span class="string">"hers is a path"</span>));</span><br><span class="line">        </span><br><span class="line">        job.setMapperClass(CountMapper.class);</span><br><span class="line">        job.setMapOutputKeyClass(Text.class);</span><br><span class="line">        job.setMapOutputValueClass(IntWritable.class);</span><br><span class="line">        </span><br><span class="line">        job.setReducerClass(CountReducer.class);</span><br><span class="line">        job.setOutputKeyClass(Text.class);</span><br><span class="line">        job.setOutputValueClass(IntWritable.class);</span><br><span class="line">        </span><br><span class="line">        job.setOutputFormatClass(TextOutputForMat.class);</span><br><span class="line">        TextOutputFormat.setOutputPath(job,<span class="keyword">new</span> Path(<span class="string">"here is output path"</span>));</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> job.waitForCompletion(<span class="keyword">true</span>) ? <span class="number">0</span>:<span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> run = ToolRunner.run(<span class="keyword">new</span> Configuration(),<span class="keyword">new</span> JobMain(),args);</span><br><span class="line">        System.exit(run);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>​        一个简单的mapreduce只需要自定义三个类，一个mapper处理解析好的key1,value1转换为key2,value2。然后中间的步骤采用默认的处理方式，到了reducer将map阶段转化的key2,value2转换为key3,value3。然后组装main方法，执行整个程序。</p>
+<h4 id="MapReduce的处理流程"><a href="#MapReduce的处理流程" class="headerlink" title="MapReduce的处理流程"></a>MapReduce的处理流程</h4><p><strong>1.定义InputFormat类解析文件</strong></p>
+<p>​    第一步，将文件解析为key，value对，一般使用TextInputFormat类，经过该类解析之后的key1为文件中的每一行的行偏移量，value为每一行的内容。  类型为&lt;LongWritable,Text&gt; 。</p>
+<p>​    如果需要自定义InputFormat类，可以通过继承FileInputFormat方法，重写其中的方法。重写createRecordReader() 、isSplitable() 方法。</p>
+<p>​    第一个方法表示文本的读取，第二个方法表示该文件是否可切分。</p>
+<p>​    createRecordReader()方法，需要一个RecordReader类，这个RecordReader需要自定义，通过继承RecordReader类 重写全部方法，来进行自定义。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 自定义recordReader类</span></span><br><span class="line"><span class="meta">@override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">(InputSplit inputSplit,TaskAttemptContext context)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 初始化方法</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">nextKeyValue</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException</span>&#123;</span><br><span class="line">    <span class="comment">// 读取的核心方法 , 其中的对象，都是成员变量</span></span><br><span class="line">    <span class="keyword">if</span>(!processed) &#123;</span><br><span class="line">        fileSystem = FileSystem.get(configuration); <span class="comment">// 获得FileSystem对象</span></span><br><span class="line">        inputStream = fileSystem.open(fileSplit.getPath());<span class="comment">// 开启文件输入流</span></span><br><span class="line">        <span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[(<span class="keyword">int</span>) fileSplit.getLength()];<span class="comment">// 定义字节数组</span></span><br><span class="line">        <span class="comment">// 把文件读取到字节数组中</span></span><br><span class="line">        IOUtils.readFully(inputStream, bytes, <span class="number">0</span>, (<span class="keyword">int</span>) fileSplit.getLength());</span><br><span class="line"></span><br><span class="line">        bytesWritable.set(bytes,<span class="number">0</span>, (<span class="keyword">int</span>) fileSplit.getLength());</span><br><span class="line"></span><br><span class="line">        processed = <span class="keyword">true</span>;</span><br><span class="line">        <span class="comment">// 置为true  修改标记</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> NullWritable <span class="title">getCurrentKey</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException</span>&#123;&#125;</span><br><span class="line"><span class="comment">// 返回当前key值</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> BytesWritable <span class="title">getCurrentValue</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException</span>&#123;&#125;</span><br><span class="line"><span class="comment">// 返回当前value值</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">float</span> <span class="title">getProgress</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException</span>&#123;&#125;</span><br><span class="line"><span class="comment">// 查看任务进度</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>&#123;&#125;</span><br><span class="line"><span class="comment">// 做一些释放资源，关闭资源的操作</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>2.自定义Mapper</strong></p>
+<p>​        自定义mapper逻辑主要是把第一步解析的key1，value1转换为key2，value2。继承Mapper类添加泛型为&lt;key1,value1,key2,value2&gt;,在写map逻辑时，首先要确认key2和value2的类型。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyMapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">key1</span>,<span class="title">value1</span>,<span class="title">key2</span>,<span class="title">Value2</span>&gt;</span>&#123;</span><br><span class="line">    <span class="comment">// 重写map方法</span></span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(Key1 key,value1 value,Context context)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">// 逻辑处理....</span></span><br><span class="line">        context.write(key2 ,value2);</span><br><span class="line">        <span class="comment">// 写出key2 value2</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.分区-partitioner</strong></p>
+<p>​        通过指定分区，可以指定相同类型的数据到同一个reduceTask中。默认使用HashPartitioner，默认的reduceTask数量为1。可以通过继承Partitioner类来自定义Partitioner类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyPartitioner</span> <span class="keyword">extends</span> <span class="title">Partitioner</span>&lt;<span class="title">key2</span>,<span class="title">value2</span>&gt;</span>&#123;</span><br><span class="line">    <span class="comment">// 重写getPartitioner()方法</span></span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getPartitioner</span><span class="params">(key2 key,value2 value, <span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 自定义分区逻辑...</span></span><br><span class="line">        <span class="keyword">return</span> (key.hashcode()&amp;Integer.MAX_VALUE)%i; <span class="comment">// 默认方式</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 可以在main方法中通过 job.setNumReduceTasks(int i) 设置reduceTask 分区的个数</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>4.排序-WritableComparable</strong></p>
+<p>​        默认的排序方式是采用字典排序，需要自定义排序，可以封装一个Bean，然后实现WritableComparable<bean>接口,定义成员变量和成员方法后，重写三个方法，分别是序列化方法，反序列化方法，排序方法。对谁排序，需要把该字段放在key2上，</bean></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JavaBean</span> <span class="keyword">implements</span> <span class="title">WritableComparable</span>&lt;<span class="title">JavaBean</span>&gt;</span>&#123;</span><br><span class="line">    <span class="comment">// 成员变量，get/set方法  construct ....</span></span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(JavaBean o)</span></span>&#123; <span class="comment">//比较方法</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.first.comparedTo(o.first);</span><br><span class="line">        <span class="comment">// 按照first变量的字典序进行排序</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(DataOutput dataOutput)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        <span class="comment">// 序列化方法</span></span><br><span class="line">        dataOutput.writeUTF(string); <span class="comment">//序列化</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readFields</span><span class="params">(DataInput dataInput)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        <span class="comment">// 反序列化方法</span></span><br><span class="line">        <span class="keyword">this</span>.first = dataInput.readUTF();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>5.规约-Combiner</strong></p>
+<p>​        规约是mapShuffle阶段的最后一个阶段，规约的作用就是把所在的mapTask处理的结果进行局部的聚合处理，以减少Map和Reducer之间的数据传输，提高处理效率。是MapReduce的优化手段之一。自定义Combiner需要继承Reducer类，他的泛型是&lt;k2,v2,k2,v2&gt;。Combiner与Reducer的区别，在于运行的位置。<strong>Combiner的作用就是进行局部的聚合减少map到reduce之间的网络传输量。</strong></p>
+<p>​        Combiner能够应用的前提是不能影响最终的业务逻辑，并且Combiner输出的key/value,应该与reducer接收的key/value对应起来。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自定义Combiner需要继承Reducer类，泛型为&lt;k2,v2,k2,v2&gt;</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyCombiner</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">k2</span>,<span class="title">v2</span>,<span class="title">k2</span>,<span class="title">v2</span>&gt;</span>&#123;</span><br><span class="line">    <span class="comment">// 重写reduce方法</span></span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(k2 key,Iterable&lt;value2&gt; valu2,Context context)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 自定义逻辑。。。</span></span><br><span class="line">        context.write(key2,value2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>6.分组-WritableComparator</strong></p>
+<p>​        分组属于reduceShuffle阶段，分组的主要作用是决定哪些数据作为一组，调用一次reduce逻辑，默认是每一个不同的key2作为的不同的组，可以通过自定义GroupingComparator继承WritableComparator类来自定分组类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实现自定义分组有三个步骤</span></span><br><span class="line"><span class="comment">//1.继承父类WritableComparator</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyGroup</span> <span class="keyword">extends</span> <span class="title">WritableComparator</span></span>&#123;</span><br><span class="line">    <span class="comment">//2.调用父类构造方法</span></span><br><span class="line">    <span class="keyword">public</span> MyGroup&#123;</span><br><span class="line">        <span class="keyword">super</span>(Key2.class,<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//3.重写compare方法</span></span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(WritableComparable a,WritableComparable b)</span></span>&#123;</span><br><span class="line">        Key2 first = (Key2)a;</span><br><span class="line">        Key2 second = (Key2)b;</span><br><span class="line">        <span class="keyword">return</span> first.compareTo(second);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>7.reduce逻辑</strong></p>
+<p>​        reduce阶段是把每个mapTask处理的结果进行聚合处理，将map阶段传来的key2/value2，转换为key3/value3进行输出。 一个mapreduce可以没有reduce，但必须有map。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyReducer</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">k2</span>,<span class="title">v2</span>,<span class="title">k3</span>,<span class="title">v3</span>&gt;</span>&#123;</span><br><span class="line">    <span class="comment">// 重写reduce方法</span></span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(k2 key,iterable&lt;v2&gt; value,Context context)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">// reduce 逻辑...</span></span><br><span class="line">        context.write(key3,value3);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>8.结果的输出-outputFormat</strong></p>
+<p>​        有的时候，我们需要自定义输出类，来达到我们的业务需求。默认一般使用TextOutputFormat类</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://yoursite.com/2019/07/11/hadoop-mapreduce/" title="hadoop-mapreduce" target="_blank" rel="external">http://yoursite.com/2019/07/11/hadoop-mapreduce/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/tygitt" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/tygitt" target="_blank"><span class="text-dark">乌蝇哥</span><small class="ml-1x">hadooper~~</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+       
+    <div id="uyan_frame"></div>
+
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2019/07/22/apache-flume/" title="apache flume"><i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;上一篇</a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2019/07/10/hadoop-hdfs/" title="hadoop-hdfs">下一篇&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,wechat"></div>
+  </div>
+  
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/tygitt" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="fa fa-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="fa fa-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="fa fa-twitter"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="fa fa-rss"></i></a></li>
+        
+    </ul>
+
+    <!--<div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/tygitt" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>-->
+</footer>
+  <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.js"></script>
+<script src="/js/application.js"></script>
+  
+    
+    
+    
+        <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+    
+    
+        
+<script defer src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+    
+    
+        
+    
+    <script defer type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=[object Object]"></script>
+
+
+    
+    
+
+
+
+</body>
+</html>

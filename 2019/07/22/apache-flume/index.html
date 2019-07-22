@@ -231,7 +231,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/flume/">flume</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/flume/">flume</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -241,7 +241,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/flume/" style="font-size: 13px;">flume</a>
+      <a href="/tags/flume/" style="font-size: 13px;">flume</a> <a href="/tags/hadoop/" style="font-size: 13px;">hadoop</a>
     </div>
   </div>
 
@@ -250,7 +250,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -273,6 +273,21 @@
               </p>
               <p class="item-date">
                 <time datetime="2019-07-22T14:43:57.000Z" itemprop="datePublished">2019-07-22</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/07/11/hadoop-mapreduce/" class="title">hadoop-mapreduce</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-07-11T12:47:10.000Z" itemprop="datePublished">2019-07-11</time>
               </p>
             </div>
           </li>
@@ -318,21 +333,6 @@
               </p>
               <p class="item-date">
                 <time datetime="2019-06-30T12:51:08.000Z" itemprop="datePublished">2019-06-30</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2019/06/30/hello-world/" class="title">Hello World</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2019-06-30T07:26:57.832Z" itemprop="datePublished">2019-06-30</time>
               </p>
             </div>
           </li>
@@ -416,14 +416,14 @@
 <p>​                                        Kafka Sink ：下沉到kafka 队列  等等。。。。</p>
 <p><strong>Channel</strong>  一般使用 Memory Channel  把缓冲数据放在内存中。</p>
 <p>​        如果，默认的功能，达不到要求，可以自定义组件。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>通常情况下的启动命令</span><br><span class="line">bin/flume-ng agent -c conf -f conf/myconf.conf -n a1  -Dflume.root.logger=INFO,console</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">通常情况下的启动命令</span></span><br><span class="line">bin/flume-ng agent -c conf -f conf/myconf.conf -n a1  -Dflume.root.logger=INFO,console</span><br></pre></td></tr></table></figure>
 
 <hr>
 <h4 id="flume的failover和load-balance"><a href="#flume的failover和load-balance" class="headerlink" title="flume的failover和load_balance"></a>flume的failover和load_balance</h4><p>​        failover：flume的容错机制，用来配置flume的高可用，一台flume停止工作后，可以立马有另一台flume顶上。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>example</span><br><span class="line">a1.sinkgroups = g1</span><br><span class="line">a1.sinkgroups.g1.sinks = k1 k2</span><br><span class="line">a1.sinkgroups.g1.processor.type = load_balance</span><br><span class="line"><span class="meta">#</span> 配置负载均衡，然后单独配置组中的每一个节点。</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">example</span></span><br><span class="line">a1.sinkgroups = g1</span><br><span class="line">a1.sinkgroups.g1.sinks = k1 k2</span><br><span class="line">a1.sinkgroups.g1.processor.type = load_balance</span><br><span class="line"><span class="meta">#</span><span class="bash"> 配置负载均衡，然后单独配置组中的每一个节点。</span></span><br></pre></td></tr></table></figure>
 
 <p>​        failover：load_balance，flume的负载均衡机制。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>example</span><br><span class="line">a1.sinkgroups = g1</span><br><span class="line">a1.sinkgroups.g1.sinks = k1 k2</span><br><span class="line">a1.sinkgroups.g1.processor.type = load_balance</span><br><span class="line">a1.sinkgroups.g1.processor.backoff = true</span><br><span class="line">a1.sinkgroups.g1.processor.selector = random</span><br><span class="line"><span class="meta">#</span> 默认使用的是 round_robin 轮询</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">example</span></span><br><span class="line">a1.sinkgroups = g1</span><br><span class="line">a1.sinkgroups.g1.sinks = k1 k2</span><br><span class="line">a1.sinkgroups.g1.processor.type = load_balance</span><br><span class="line">a1.sinkgroups.g1.processor.backoff = true</span><br><span class="line">a1.sinkgroups.g1.processor.selector = random</span><br><span class="line"><span class="meta">#</span><span class="bash"> 默认使用的是 round_robin 轮询</span></span><br></pre></td></tr></table></figure>
 
 
       
@@ -484,7 +484,7 @@
     
     
     <li class="next">
-      <a href="/2019/07/10/hadoop-hdfs/" title="hadoop-hdfs">下一篇&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+      <a href="/2019/07/11/hadoop-mapreduce/" title="hadoop-mapreduce">下一篇&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i></a>
     </li>
     
   </ul>
