@@ -66,6 +66,31 @@
   </entry>
   
   <entry>
+    <title>flume的使用</title>
+    <link href="http://tygitt.github.io/2019/07/18/flume%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+    <id>http://tygitt.github.io/2019/07/18/flume的使用/</id>
+    <published>2019-07-18T03:05:36.000Z</published>
+    <updated>2019-07-25T14:38:27.638Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Apache-Flume"><a href="#Apache-Flume" class="headerlink" title="Apache Flume"></a>Apache Flume</h2><p>flume官网介绍：</p><blockquote><p>​        Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible architecture based on streaming data flows. It is robust and fault tolerant with tunable reliability mechanisms and many failover and recovery mechanisms. It uses a simple extensible data model that allows for online analytic application.</p><p>​        Flume是一种分布式，可靠且可用的服务，用于有效地收集，聚合和移动大量日志数据。它具有基于流数据流的简单灵活的架构。它具有可靠的可靠性机制和许多故障转移和恢复机制，具有强大的容错性。它使用简单的可扩展数据模型，允许在线分析应用程序。</p></blockquote><p>百度百科介绍：</p><blockquote><p>​        Flume是Cloudera提供的一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的系统，Flume支持在日志系统中定制各类数据发送方，用于收集数据；同时，Flume提供对数据进行简单处理，并写到各种数据接受方（可定制）的能力。</p></blockquote><p><a href="http://flume.apache.org" target="_blank" rel="noopener">flume官网</a></p><hr><h4 id="flume的使用"><a href="#flume的使用" class="headerlink" title="flume的使用"></a>flume的使用</h4><p>​        flume的使用比较简单，主要是配置flume的三个组件：Source、Sink、Channel。</p><p><strong>Source</strong> 用来对接数据源，<strong>Sink</strong>用来指代数据的下沉目的地，<strong>Channel</strong>表示Source与Sink之间的管道。</p><h5 id="Source"><a href="#Source" class="headerlink" title="Source"></a>Source</h5><p>​        常用的Source有：Avor Source  用来对接上一个Flume agent 的Sink</p><p>​                                        Exec Source  用来对接一个给定的命令，所产生的结果。例如 tail -F  cat </p><p>​                                        Spooling Directory Source 对接一个给定的文件夹，读取其中的文件  等等。。。</p><p><strong>Sink</strong></p><p>​        常用的Sink有：     HDFS Sink : 将数据下沉到HDFS上</p><p>​                                        Hive Sink ：将数据下沉到Hive中</p><p>​                                        Logger Sink ：将数据下沉到日志中</p><p>​                                        Kafka Sink ：下沉到kafka 队列  等等。。。。</p><p><strong>Channel</strong>  一般使用 Memory Channel  把缓冲数据放在内存中。</p><p>​        如果，默认的功能，达不到要求，可以自定义组件。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>通常情况下的启动命令</span><br><span class="line">bin/flume-ng agent -c conf -f conf/myconf.conf -n a1  -Dflume.root.logger=INFO,console</span><br></pre></td></tr></table></figure><hr><h4 id="flume的failover和load-balance"><a href="#flume的failover和load-balance" class="headerlink" title="flume的failover和load_balance"></a>flume的failover和load_balance</h4><p>​        failover：flume的容错机制，用来配置flume的高可用，一台flume停止工作后，可以立马有另一台flume顶上。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>example</span><br><span class="line">a1.sinkgroups = g1</span><br><span class="line">a1.sinkgroups.g1.sinks = k1 k2</span><br><span class="line">a1.sinkgroups.g1.processor.type = load_balance</span><br><span class="line"><span class="meta">#</span> 配置负载均衡，然后单独配置组中的每一个节点。</span><br></pre></td></tr></table></figure><p>​        failover：load_balance，flume的负载均衡机制。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>example</span><br><span class="line">a1.sinkgroups = g1</span><br><span class="line">a1.sinkgroups.g1.sinks = k1 k2</span><br><span class="line">a1.sinkgroups.g1.processor.type = load_balance</span><br><span class="line">a1.sinkgroups.g1.processor.backoff = true</span><br><span class="line">a1.sinkgroups.g1.processor.selector = random</span><br><span class="line"><span class="meta">#</span> 默认使用的是 round_robin 轮询</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Apache-Flume&quot;&gt;&lt;a href=&quot;#Apache-Flume&quot; class=&quot;headerlink&quot; title=&quot;Apache Flume&quot;&gt;&lt;/a&gt;Apache Flume&lt;/h2&gt;&lt;p&gt;flume官网介绍：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p
+      
+    
+    </summary>
+    
+    
+      <category term="apache flume" scheme="http://tygitt.github.io/tags/apache-flume/"/>
+    
+  </entry>
+  
+  <entry>
     <title>hadoop-mapreduce</title>
     <link href="http://tygitt.github.io/2019/07/11/hadoop-mapreduce/"/>
     <id>http://tygitt.github.io/2019/07/11/hadoop-mapreduce/</id>

@@ -16,20 +16,21 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>Hello World | myblog</title>
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <title>flume的使用 | myblog</title>
+  <meta name="description" content="Apache Flumeflume官网介绍：  ​        Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible arc">
+<meta name="keywords" content="apache flume">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://tygitt.github.io/2019/06/30/hello-world/index.html">
+<meta property="og:title" content="flume的使用">
+<meta property="og:url" content="http://tygitt.github.io/2019/07/18/flume的使用/index.html">
 <meta property="og:site_name" content="ty-blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="Apache Flumeflume官网介绍：  ​        Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible arc">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-30T07:26:57.833Z">
+<meta property="og:updated_time" content="2019-07-25T14:38:27.638Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="flume的使用">
+<meta name="twitter:description" content="Apache Flumeflume官网介绍：  ​        Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible arc">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://tygitt.github.io/2019/06/30/hello-world/index.html">
+  <link rel="canonical" href="http://tygitt.github.io/2019/07/18/flume的使用/index.html">
   
     <link rel="alternate" href="/atom.xml" title="ty-blog" type="application/atom+xml">
   
@@ -349,14 +350,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-hello-world" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-flume的使用" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      flume的使用
     </h1>
   
 
@@ -364,12 +365,17 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="fa fa-calendar-check-o"></i>
-	<a href="/2019/06/30/hello-world/" class="article-date">
-	  <time datetime="2019-06-30T07:26:57.832Z" itemprop="datePublished">2019-06-30</time>
+	<a href="/2019/07/18/flume的使用/" class="article-date">
+	  <time datetime="2019-07-18T03:05:36.000Z" itemprop="datePublished">2019-07-18</time>
 	</a>
 </span>
         
         
+  <span class="article-tag">
+    <i class="fa fa-tag"></i>
+	<a class="article-tag-link" href="/tags/apache-flume/">apache flume</a>
+  </span>
+
 
         
 	<span class="article-read hidden-xs">
@@ -380,26 +386,45 @@
 	</span>
 
 
-        <span class="post-comment"><i class="fa fa-commenting-o"></i> <a href="/2019/06/30/hello-world/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="fa fa-commenting-o"></i> <a href="/2019/07/18/flume的使用/#comments" class="article-comment-link">评论</a></span>
         
       </div>
       
     </div>
     <div class="article-entry markdown-body" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+        <h2 id="Apache-Flume"><a href="#Apache-Flume" class="headerlink" title="Apache Flume"></a>Apache Flume</h2><p>flume官网介绍：</p>
+<blockquote>
+<p>​        Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible architecture based on streaming data flows. It is robust and fault tolerant with tunable reliability mechanisms and many failover and recovery mechanisms. It uses a simple extensible data model that allows for online analytic application.</p>
+<p>​        Flume是一种分布式，可靠且可用的服务，用于有效地收集，聚合和移动大量日志数据。它具有基于流数据流的简单灵活的架构。它具有可靠的可靠性机制和许多故障转移和恢复机制，具有强大的容错性。它使用简单的可扩展数据模型，允许在线分析应用程序。</p>
+</blockquote>
+<p>百度百科介绍：</p>
+<blockquote>
+<p>​        Flume是Cloudera提供的一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的系统，Flume支持在日志系统中定制各类数据发送方，用于收集数据；同时，Flume提供对数据进行简单处理，并写到各种数据接受方（可定制）的能力。</p>
+</blockquote>
+<p><a href="http://flume.apache.org" target="_blank" rel="noopener">flume官网</a></p>
+<hr>
+<h4 id="flume的使用"><a href="#flume的使用" class="headerlink" title="flume的使用"></a>flume的使用</h4><p>​        flume的使用比较简单，主要是配置flume的三个组件：Source、Sink、Channel。</p>
+<p><strong>Source</strong> 用来对接数据源，<strong>Sink</strong>用来指代数据的下沉目的地，<strong>Channel</strong>表示Source与Sink之间的管道。</p>
+<h5 id="Source"><a href="#Source" class="headerlink" title="Source"></a>Source</h5><p>​        常用的Source有：Avor Source  用来对接上一个Flume agent 的Sink</p>
+<p>​                                        Exec Source  用来对接一个给定的命令，所产生的结果。例如 tail -F  cat </p>
+<p>​                                        Spooling Directory Source 对接一个给定的文件夹，读取其中的文件  等等。。。</p>
+<p><strong>Sink</strong></p>
+<p>​        常用的Sink有：     HDFS Sink : 将数据下沉到HDFS上</p>
+<p>​                                        Hive Sink ：将数据下沉到Hive中</p>
+<p>​                                        Logger Sink ：将数据下沉到日志中</p>
+<p>​                                        Kafka Sink ：下沉到kafka 队列  等等。。。。</p>
+<p><strong>Channel</strong>  一般使用 Memory Channel  把缓冲数据放在内存中。</p>
+<p>​        如果，默认的功能，达不到要求，可以自定义组件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>通常情况下的启动命令</span><br><span class="line">bin/flume-ng agent -c conf -f conf/myconf.conf -n a1  -Dflume.root.logger=INFO,console</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="flume的failover和load-balance"><a href="#flume的failover和load-balance" class="headerlink" title="flume的failover和load_balance"></a>flume的failover和load_balance</h4><p>​        failover：flume的容错机制，用来配置flume的高可用，一台flume停止工作后，可以立马有另一台flume顶上。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>example</span><br><span class="line">a1.sinkgroups = g1</span><br><span class="line">a1.sinkgroups.g1.sinks = k1 k2</span><br><span class="line">a1.sinkgroups.g1.processor.type = load_balance</span><br><span class="line"><span class="meta">#</span> 配置负载均衡，然后单独配置组中的每一个节点。</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>​        failover：load_balance，flume的负载均衡机制。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>example</span><br><span class="line">a1.sinkgroups = g1</span><br><span class="line">a1.sinkgroups.g1.sinks = k1 k2</span><br><span class="line">a1.sinkgroups.g1.processor.type = load_balance</span><br><span class="line">a1.sinkgroups.g1.processor.backoff = true</span><br><span class="line">a1.sinkgroups.g1.processor.selector = random</span><br><span class="line"><span class="meta">#</span> 默认使用的是 round_robin 轮询</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
       
     </div>
@@ -409,7 +434,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://tygitt.github.io/2019/06/30/hello-world/" title="Hello World" target="_blank" rel="external">http://tygitt.github.io/2019/06/30/hello-world/</a>
+      <a href="http://tygitt.github.io/2019/07/18/flume的使用/" title="flume的使用" target="_blank" rel="external">http://tygitt.github.io/2019/07/18/flume的使用/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -458,9 +483,13 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2019/06/30/hexo-github搭建个人博客/" title="hexo + github搭建个人博客"><i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;上一篇</a>
+      <a href="/2019/07/22/apache-flume/" title="apache flume"><i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;上一篇</a>
     </li>
     
+    
+    <li class="next">
+      <a href="/2019/07/11/hadoop-mapreduce/" title="hadoop-mapreduce">下一篇&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+    </li>
     
   </ul>
   
